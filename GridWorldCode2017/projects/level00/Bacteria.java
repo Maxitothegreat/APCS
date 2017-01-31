@@ -1,3 +1,7 @@
+/*
+ * Max Porter 1/31/2017
+ * GridWorld Level 00
+ */
 import java.awt.Color;
 import info.gridworld.actor.Actor;
 import info.gridworld.grid.Grid;
