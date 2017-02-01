@@ -13,7 +13,8 @@ public class Bacteria extends Actor{
 
 	private Location loc = null;
 	ArrayList<Location> locs;
-	boolean isDone = false;
+	private boolean isDone = false;
+	private boolean found = false;
 	
 	public Bacteria()
 	{
@@ -22,18 +23,28 @@ public class Bacteria extends Actor{
 	
 	public void act()
 	{
-			locs = getGrid().getOccupiedLocations();
-			for(Location locate : locs)
+			if(!found)
 			{
-				Actor check = getGrid().get(locate);
-				if(check instanceof Heart) loc = locate;
+				locs = getGrid().getOccupiedLocations();
+				for(Location locate : locs)
+				{
+					Actor check = getGrid().get(locate);
+					if(check instanceof Heart) 
+					{
+						loc = locate;
+						found = true;
+					}
+				}
 			}
 			
 			if(!isDone)
 			{
 				setDirection(getLocation().getDirectionToward(loc));
 				Location next = getLocation().getAdjacentLocation(getDirection());
-				moveTo(next);
+				if(getGrid().get(next) == null)
+				{
+					moveTo(next);
+				}
 			}
 			
 			for(Location endLoc : getGrid().getOccupiedAdjacentLocations(getLocation()))
